@@ -3,4 +3,5 @@ uvicorn==0.22.0
 sqlalchemy
 pydantic
 passlib
+bcrypt
 # Add other Python dependencies here

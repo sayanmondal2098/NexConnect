@@ -7,6 +7,7 @@ class UserCreate(BaseModel):
     password: Optional[str] = None
     social_login_provider: Optional[str] = None
     social_login_id: Optional[str] = None
+    role: Optional[str] = "viewer"
     active: Optional[int] = 1
 
 class UserLogin(BaseModel):
@@ -14,6 +15,7 @@ class UserLogin(BaseModel):
     password: Optional[str] = None
     social_login_provider: Optional[str] = None
     social_login_id: Optional[str] = None
+    role: Optional[str] = None
     active: Optional[int] = 1
 
 class UserUpdate(BaseModel):

@@ -4,6 +4,9 @@ from src.models.user import User
 from src.schemas.user_schema import UserCreate, UserLogin
 from uuid import uuid4
 
+
+# to do - Implement Radis server to get data quickly from cache and reduce the load on the database
+
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def get_password_hash(password):
@@ -28,6 +31,10 @@ def create_user(db: Session, user_data: UserCreate):
 
 def authenticate_user(db: Session, user_data: UserLogin):
     user = db.query(User).filter(User.email == user_data.email).first()
+    if not isinstance(user, User):
+        print(f"Expected User object, got {type(user)}")
+        return None
+    print(user.email)
     if not user:
         return None
     if user_data.password and not pwd_context.verify(user_data.password, user.hashed_password):
@@ -36,6 +43,9 @@ def authenticate_user(db: Session, user_data: UserLogin):
         return None
     return user
 
+    def authenticate_user_binary(db: Session, user_data: UserLogin) -> bool:
+        user = authenticate_user(db, user_data)
+        return user is not None
 
 def get_user_by_email(db: Session, email: str):
     return db.query(User).filter(User.email == email).first()
@@ -65,7 +75,6 @@ def update_user(db: Session, user_id: str, user_data: UserCreate):
     db.refresh(user)
     return user
 
-
 def delete_user(db: Session, user_id: str):
     user = get_user_by_id(db, user_id)
     if not user:
@@ -74,8 +83,8 @@ def delete_user(db: Session, user_id: str):
     db.commit()
     return user
 
-def log_out_user(db: Session, user_data: UserLogin):
-    user = authenticate_user(db, user_data)
+def log_out_user(db: Session, user_id: UserLogin):
+    user = get_user_by_id(db, user_id)
     if not user:
         return None
     user.active = 0
