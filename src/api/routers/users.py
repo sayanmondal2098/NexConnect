@@ -44,3 +44,8 @@ def logout_user(user_id: str, db: Session = Depends(get_db)):
     if not success:
         raise HTTPException(status_code=404, detail="User not found or already logged out")
     return {"message": "Logout successful"}
+
+
+@user_router.get("/user/example")
+def example_test():
+    return {"message": "Example"}

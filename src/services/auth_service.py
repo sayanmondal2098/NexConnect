@@ -43,7 +43,7 @@ def authenticate_user(db: Session, user_data: UserLogin):
         return None
     return user
 
-    def authenticate_user_binary(db: Session, user_data: UserLogin) -> bool:
+def authenticate_user_binary(db: Session, user_data: UserLogin) -> bool:
         user = authenticate_user(db, user_data)
         return user is not None
 

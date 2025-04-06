@@ -3,6 +3,7 @@ from src.core.database import engine, Base
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.api.routers.users import user_router as users
+from src.api.routers.google_sheet_connectors import google_sheet_router as google_sheet_connectors
 
 
 app = FastAPI(title="NexConnect")
@@ -28,3 +29,4 @@ def root():
 
 
 app.include_router(users, prefix="/users", tags=["Users"])
+app.include_router(google_sheet_connectors, prefix="/google-sheet", tags=["Google Sheet Connectors"])

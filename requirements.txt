@@ -4,4 +4,5 @@ sqlalchemy
 pydantic
 passlib
 bcrypt
+requests
 # Add other Python dependencies here
