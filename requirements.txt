@@ -1,0 +1,11 @@
+fastapi==0.95.2
+uvicorn==0.22.0
+sqlalchemy
+pydantic
+passlib
+bcrypt
+requests
+dotenv
+httpx
+python-dotenv
+# Add other Python dependencies here
